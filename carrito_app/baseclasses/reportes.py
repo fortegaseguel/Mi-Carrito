@@ -202,10 +202,10 @@ class ReportesWid(BoxLayout):
         self.sendmail(asunto, ruta, filename)
 
     def sendmail(self, asunto, ruta, filename):
-        username = 'tucorreodedestino@gmail.com'
-        password = 'tucontraseña'
-        send_from = 'tucorreodeorigen@gmail.com'
-        send_to = 'tucorreodedestino@gmail.com'
+        username = 'donlomoferoz1@gmail.com'
+        password = 'manetaraperla'
+        send_from = 'fortegaseguel@gmail.com'
+        send_to = 'donlomoferoz1@gmail.com'
         Cc = ''
 
         msg = MIMEMultipart()
