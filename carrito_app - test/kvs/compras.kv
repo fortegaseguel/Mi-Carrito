@@ -1,0 +1,312 @@
+#:kivy 2.0
+
+<DataWidCompras>:
+    data: ''
+    data_id: ''
+    canvas:
+        Color:
+            rgb: 0.2,0.2,0.2
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    Label:
+        size_hint_x: 0.8
+        size_font: self.width*0.4
+        text: root.data
+    Button:
+        size_hint_x: 0.2
+        text: 'Editar'
+        on_press: app.root.transition = SlideTransition(direction='left')
+        on_release: root.update_data_compras(root.data_id)
+
+
+
+<DataBaseWidCompras>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgb: .3,.3,.5
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    GridLayout:
+        cols: 2
+        size_hint_y: None
+        row_default_height: root.height*0.1
+        height: self.minimum_height
+
+        Button:
+            size_hint_y: None
+            font_size: '18sp'
+            height: '100dp'
+            text: 'Inicio'
+            on_press: app.root.transition = SlideTransition(direction='right')
+            on_release: root.mainwid.goto_start()
+
+        Button:
+            size_hint_y: None
+            font_size: '18sp'
+            height: '100dp'
+            text: 'Nuevo Ingreso'
+            on_press: app.root.transition = SlideTransition(direction='left')
+            on_release: root.create_new_product()
+
+    ScrollView:
+        size: self.size
+        GridLayout:
+            id: container
+            padding: [10,10,10,10]
+            spacing: 5
+            size_hint_y: None
+            cols: 1
+            row_default_height: root.height*0.3
+            height: self.minimum_height
+
+
+<LeftLabel@Label>:
+    text_size: self.size
+    halign: 'left'
+
+
+<MessagePopup>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: message
+            size_hint: 1,0.8
+            text: ''
+        Button:
+            size_hint: 1,0.2
+            text: 'Regresar'
+            on_press: root.dismiss()
+
+
+<InsertDataWidCompras>:
+    canvas:
+        Color:
+            rgb: 0.2,0.2,0.2
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    do_default_tab: False
+    tab_pos: 'top_mid'
+
+    TabbedPanelItem:
+        text: 'Rápido'
+        font_size: '18dp'
+
+        BoxLayout:
+            orientation: 'vertical'
+            size: root.width, root.height
+
+            LeftLabel: # ---------- Producto
+                text: '    Producto:'
+            Spinner:
+                id: ti_producto_rapido
+                text: 'Seleccione'
+                values:
+                    ['Pack Bebidas', 'Papas Fritas', 'Proteina Congelada',\
+                    'Pan', 'Fajitas', 'Verduras', 'Bencina', 'Pago Jornada']
+                size_hint_x: 0.9
+                pos_hint: {"center_x": 0.5}
+                on_text: root.ingreso_rapido(ti_producto_rapido.text)
+
+            LeftLabel: # ---------- Cantidad
+                text: '    Cantidad:'
+            TextInput:
+                id: ti_cantidadd
+                multiline: False
+                size_hint_x: 0.9
+                pos_hint: {"center_x": 0.5}
+                hint_text: 'Cantidad'
+
+            LeftLabel: # ---------- Producto
+                text: '    Costo:'
+
+            TextInput:
+                id: ti_costoo
+                multiline: False
+                size_hint_x: 0.9
+                pos_hint: {"center_x": 0.5}
+                hint_text: 'Costo'
+
+
+            BoxLayout:
+                size_hint_y: 5
+            BoxLayout: # ---------- Crear Salir
+                Button:
+                    text: 'Salir'
+                    size_hint_y: 0.65
+                    on_press: app.root.transition = SlideTransition(direction='right')
+                    on_release: root.back_to_dbw()
+
+                Button:
+                    text: 'Crear'
+                    size_hint_y: 0.65
+                    on_press: app.root.transition = SlideTransition(direction='left')
+                    on_release:
+                        root.insert_datafast()
+
+
+    TabbedPanelItem:
+        text: 'Nuevo'
+        font_size: '18dp'
+
+        BoxLayout:
+            orientation: 'vertical'
+            size: root.width, root.height
+
+
+            LeftLabel: # ---------- Producto
+                text: '    Producto:'
+            TextInput:
+                id: ti_producto
+                multiline: False
+                size_hint_x: 0.9
+                pos_hint: {"center_x": 0.5}
+                hint_text: 'Producto'
+
+
+            LeftLabel: # ---------- Cantidad
+                text: '    Cantidad:'
+            TextInput:
+                id: ti_cantidad
+                multiline: False
+                size_hint_x: 0.9
+                pos_hint: {"center_x": 0.5}
+                hint_text: 'Cantidad'
+
+
+            LeftLabel: # ---------- Unidad
+                text: '    Unidad:'
+            Spinner:
+                id: ti_unidad
+                text: 'Seleccione'
+                values: ['Kg', 'Un', 'Lts']
+                size_hint_x: 0.9
+                pos_hint: {"center_x": 0.5}
+                on_text: root.select_unidad(ti_unidad.text)
+
+
+            LeftLabel: # ---------- Categoria
+                text: '    Categoria:'
+            Spinner:
+                id: ti_categoria
+                text: 'Seleccione'
+                values:
+                    ['Congelados', 'No Congelados', 'Pan', 'Servicios', 'Bebidas',\
+                    'Higiene', 'Combustible', 'Personal']
+                size_hint_x: 0.9
+                pos_hint: {"center_x": 0.5}
+                on_text: root.select_categoria(ti_categoria.text)
+
+
+            LeftLabel: # ---------- Costo
+                text: '    Costo:'
+            TextInput:
+                id: ti_costo
+                multiline: False
+                size_hint_x: 0.9
+                pos_hint: {"center_x": 0.5}
+                hint_text: 'Costo'
+
+
+            BoxLayout:
+                size_hint_y: 5
+            BoxLayout: # ---------- Crear Salir
+                Button:
+                    text: 'Salir'
+                    on_press: app.root.transition = SlideTransition(direction='right')
+                    on_release: root.back_to_dbw()
+
+                Button:
+                    text: 'Crear'
+                    on_press: app.root.transition = SlideTransition(direction='left')
+                    on_release:
+                        root.insert_data()
+
+
+
+<UpdateDataWidCompras>:
+    orientation: 'vertical'
+    data_id: ''
+    canvas:
+        Color:
+            rgb: 0.2,0.2,0.2
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+    LeftLabel: # ---------- ID
+        text: ' ID: '+root.data_id
+
+
+    LeftLabel: # ---------- Producto
+        text: '    Producto:'
+    TextInput:
+        id: ti_producto
+        multiline: False
+        size_hint_x: 0.9
+        pos_hint: {"center_x": 0.5}
+        hint_text: 'Producto'
+
+
+    LeftLabel: # ---------- Cantidad
+        text: '    Cantidad:'
+    TextInput:
+        id: ti_cantidad
+        multiline: False
+        size_hint_x: 0.9
+        pos_hint: {"center_x": 0.5}
+        hint_text: 'Cantidad'
+
+
+    LeftLabel: # ---------- Unidad
+        text: '    Unidad:'
+    Spinner:
+        id: ti_unidad
+        text: 'Seleccione'
+        values: ['Kg', 'Un', 'Lts']
+        size_hint_x: 0.9
+        pos_hint: {"center_x": 0.5}
+        on_text: root.select_unidad(ti_unidad.text)
+
+    LeftLabel: # ---------- Categoria
+        text: '    Categoria:'
+    Spinner:
+        id: ti_categoria
+        text: 'Seleccione'
+        values: ['Congelados', 'No Congelados', 'Pan', 'Servicios', 'Bebidas', 'Higiene']
+        size_hint_x: 0.9
+        pos_hint: {"center_x": 0.5}
+        on_text: root.select_categoria(ti_categoria.text)
+
+
+    LeftLabel: # ---------- Costo
+        text: '    Costo:'
+    TextInput:
+        id: ti_costo
+        multiline: False
+        size_hint_x: 0.9
+        pos_hint: {"center_x": 0.5}
+        hint_text: 'Costo'
+
+
+    BoxLayout:
+        size_hint_y: 4
+    BoxLayout:
+        Button:
+            text: 'Actualizar'
+            on_press: app.root.transition = SlideTransition(direction='left')
+            on_release: root.update_data_compras()
+        Button:
+            text: 'Eliminar'
+            on_press: root.delete_data()
+
+    Button: # ---------- Actualizar, Salir
+        text: 'Salir'
+        on_press: app.root.transition = SlideTransition(direction='right')
+        on_release: root.mainwid.goto_database_compras()

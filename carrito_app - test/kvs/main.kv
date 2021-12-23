@@ -1,0 +1,46 @@
+#:kivy 2.0
+
+<MainWid>:
+    canvas:
+        Color:
+            rgb: 1,1,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<StartWid>:
+    MDScreen:
+        padding: '8dp'
+        md_bg_color: app.theme_cls.bg_light
+
+        FitImage:
+            id: bg_image
+            source: './assets/banner.png'
+            size_hint_y: 0.5
+            pos_hint: {"top": 1}
+            padding: '8dp'
+
+
+        MDIconButton:
+            icon: "./assets/compras.png"
+            hint_text: 'COMPRAS'
+            user_font_size: "90dp"
+            pos_hint: {'center_x': 0.23, 'center_y': 0.3}
+            on_press: app.root.transition = SlideTransition(direction='left')
+            on_release: root.create_database_compras()
+
+        MDIconButton:
+            icon: "account-details"
+            text: 'REPORTES'
+            user_font_size: "60dp"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.15}
+            on_press: app.root.transition = SlideTransition(direction='left')
+            on_release: root.mainwid.goto_reportes()
+
+        MDIconButton:
+            icon: "./assets/ventas.png"
+            text: 'VENTAS'
+            user_font_size: "90dp"
+            pos_hint: {'center_x': 0.78, 'center_y': 0.3}
+            on_press: app.root.transition = SlideTransition(direction='left')
+            on_release: root.create_database_ventas()
