@@ -46,3 +46,8 @@ escribir a mi correo electrónico.
     [www.linkedin.com/in/fortegaseguel](http://www.linkedin.com/in/fortegaseguel)
 
 -   Email: felix.ortega@outlook.com
+
+## APK de prueba
+
+En la Rama 'apk' hay una version de la app que almacena de forma local el reporte en la carpeta Descargas de tu teléfono.
+
